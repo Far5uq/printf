@@ -3,11 +3,23 @@
 #include "main.h"
 
 /**
+ * _putchar - A custom putchar function
+ * @c: The character to be printed
+ *
+ * Return: The number of characters printed (always 1)
+ */
+int _putchar(char c)
+{
+return (write(1, &c, 1));
+}
+
+/**
  * print_char - Print a character to stdout.
  * @args: The va_list containing the character to print.
  *
  * Return: The number of characters printed.
  */
+
 int print_char(va_list args)
 {
 char c;
