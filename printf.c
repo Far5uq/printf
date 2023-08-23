@@ -1,93 +1,83 @@
-#include <stdarg.h>
-#include <unistd.h>
 #include "main.h"
+#include <stdio.h>
+#include <stdarg.h>
+#include <stddef.h>
 
 /**
- * _putchar - A custom putchar function
- * @c: The character to be printed
+ * print_char - Print a single character
+ * @args: The va_list containing the character to print
  *
  * Return: The number of characters printed (always 1)
  */
-int _putchar(char c)
-{
-return (write(1, &c, 1));
-}
-
-/**
- * print_char - Print a character to stdout.
- * @args: The va_list containing the character to print.
- *
- * Return: The number of characters printed.
- */
-
 int print_char(va_list args)
 {
-char c;
-c = va_arg(args, int);
-return (write(1, &c, 1));
+return (_putchar(va_arg(args, int)));
 }
 
 /**
- * print_string - Print a string to stdout.
- * @args: The va_list containing the string to print.
+ * print_string - Print a string
+ * @args: The va_list containing the string to print
  *
- * Return: The number of characters printed.
+ * Return: The number of characters printed
  */
 
 int print_string(va_list args)
 {
-char *s;
-int count = 0;
-s = va_arg(args, char *);
-if (s == NULL)
-s = "(null)";
-while (*s)
+char *str;
+int count;
+str = va_arg(args, char *);
+count = 0;
+if (str == NULL)
+str = "(null)";
+while (*str)
 {
-write(1, s, 1);
-s++;
+_putchar(*str);
+str++;
 count++;
 }
 return (count);
 }
 
 /**
- * _printf - Produces output according to a format.
- * @format: The format string.
+ * _printf - Custom printf function with limited format specifiers
+ * @format: The format string to be printed
  *
  * Return: The number of characters printed (excluding the null byte).
  */
-
 int _printf(const char *format, ...)
 {
 va_list args;
-int count = 0;
+int count;
+count = 0;
 va_start(args, format);
 while (*format)
 {
-if (*format != '%')
-{
-write(1, format, 1);
-count++;
-}
-else
+if (*format == '%')
 {
 format++;
-if (*format == '\0')
-break;
-if (*format == 'c')
-count += print_char(args);
-else if (*format == 's')
-count += print_string(args);
-else if (*format == '%')
+switch (*format)
 {
-write(1, "%", 1);
+case 'c':
+count += print_char(args);
+break;
+case 's':
+count += print_string(args);
+break;
+case '%':
+_putchar('%');
 count++;
+break;
+default:
+_putchar('%');
+_putchar(*format);
+count += 2;
+break;
+}
 }
 else
 {
-write(1, format - 1, 2);
-count += 2;
-}
+_putchar(*format);
+count++;
 }
 format++;
 }
