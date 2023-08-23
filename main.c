@@ -10,8 +10,7 @@
 int main(void)
 {
 int characters_printed;
-characters_printed = _printf("Hello, %s! My favorite character is %c.%%\n",
-"Alice", 'A');
+characters_printed = _printf("Hello, %s! The first character of my name is %c.%\n", "ALX", 'F');
 printf("Characters printed: %d\n", characters_printed);
 return (0);
 }

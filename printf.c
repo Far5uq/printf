@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stddef.h>
+#include "_putchar.c"
 
 /**
  * print_char - Print a single character
