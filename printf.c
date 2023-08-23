@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stddef.h>
-#include "_putchar.c"
 
 /**
  * print_char - Print a single character
@@ -37,6 +36,30 @@ str++;
 count++;
 }
 return (count);
+}
+
+/**
+ * print_int - Print an integer
+ * @args: The va_list containing the integer to print
+ *
+ * Return: The number of characters printed
+ */
+int print_int(va_list args)
+{
+int n;
+int count;
+n = va_arg(args, int);
+count = 0;
+if (n < 0)
+{
+_putchar('-');
+count++;
+n = -n;
+}
+if (n / 10 != 0)
+count += print_int(args);
+_putchar((n % 10) + '0');
+return (count + 1);
 }
 
 /**
